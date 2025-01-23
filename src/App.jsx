@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Menu, X, Github, Linkedin, Mail, Phone, MapPin, ChevronDown, Sun, Moon, Calendar, Briefcase, GraduationCap } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail, Phone, MapPin, ChevronDown, Sun, Moon, Calendar, Briefcase, GraduationCap, Download } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
     else if (contactInView) setActiveSection('contact');
   }, [homeInView, aboutInView, experienceInView, skillsInView, projectsInView, educationInView, contactInView]);
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -41,19 +41,96 @@ function App() {
     setIsMenuOpen(false);
   };
 
-    const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
-    const titles = ["Software Developer", "Java Developer", "Web Developer"];
-  
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setCurrentTitleIndex((prevIndex) => (prevIndex + 1) % titles.length);
-      }, 2000); // Change title every 2 seconds
-      return () => clearInterval(interval);
-    }, []);
+  const skills = [
+    {
+      name: 'Java',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
+      color: 'text-red-500',
+    },
+    {
+      name: 'SpringBoot',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg',
+      color: 'text-green-500',
+    },
+    {
+      name: 'MySQL',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+      color: 'text-blue-500',
+    },
+    {
+      name: 'Hibernate',
+      icon: 'https://hibernate.org/images/hibernate_icon_whitebkg.svg',
+      color: 'text-yellow-500',
+    },
+    {
+      name: 'REST APIs',
+      icon: 'https://www.svgrepo.com/show/375531/api.svg',
+      color: 'text-purple-500',
+    },
+    {
+      name: 'HTML5',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
+      color: 'text-orange-500',
+    },
+    {
+      name: 'CSS3',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
+      color: 'text-blue-500',
+    },
+    {
+      name: 'JavaScript',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+      color: 'text-yellow-400',
+    },
+    {
+      name: 'React',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+      color: 'text-blue-400',
+    },
+    {
+      name: 'Node.js',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+      color: 'text-green-500',
+    },
+    {
+      name: 'Express.js',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
+      color: 'text-red-500',
+    },
+    {
+      name: 'MongoDB',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
+      color: 'text-orange-500',
+    },
+    {
+      name: 'Postman',
+      icon: 'https://www.svgrepo.com/show/354202/postman-icon.svg',
+      color: 'text-orange-500',
+    },
+    {
+      name: 'Git',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
+      color: 'text-yellow-500',
+    },
+    {
+      name: 'VSCode',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg',
+      color: 'text-blue-500',
+    },
+    {
+      name: 'Github',
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
+      color: 'text-purple-500',
+    },
+    {
+      name: 'Vercel',
+      icon: 'https://www.vectorlogo.zone/logos/vercel/vercel-icon.svg',
+      color: 'text-green-500',
+    },
+  ];
 
   return (
-    <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
-      {/* Navigation */}
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg z-50 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
@@ -63,35 +140,32 @@ function App() {
               </h1>
             </div>
             
-           {/* Desktop Navigation */}
-<div className="hidden md:flex items-center space-x-5">
-  {['home', 'about', 'skills', 'experience', 'projects', 'education', 'contact'].map((item) => (
-    <button
-      key={item}
-      onClick={() => scrollToSection(item)}
-      className={`${
-        activeSection === item 
-          ? 'text-indigo-500 dark:text-indigo-400' 
-          : 'text-gray-600 dark:text-gray-300'
-      } hover:text-indigo-500 dark:hover:text-indigo-400 px-3 py-2 text-lg font-bold capitalize transition-colors duration-200`} // Increased text size to 'text-lg'
-    >
-      {item}
-    </button>
-  ))}
-  <button
-    onClick={toggleTheme}
-    className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-  >
-    {theme === 'dark' ? (
-      <Sun className="text-yellow-500" size={24} />
-    ) : (
-      <Moon className="text-gray-600" size={24} />
-    )}
-  </button>
-</div>
+            <div className="hidden md:flex items-center space-x-8">
+              {['home', 'about', 'experience', 'skills', 'projects', 'education', 'contact'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item)}
+                  className={`${
+                    activeSection === item 
+                      ? 'text-indigo-500 dark:text-indigo-400' 
+                      : 'text-gray-600 dark:text-gray-300'
+                  } hover:text-indigo-500 dark:hover:text-indigo-400 px-3 py-2 text-sm font-medium capitalize transition-colors duration-200`}
+                >
+                  {item}
+                </button>
+              ))}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="text-yellow-500" size={24} />
+                ) : (
+                  <Moon className="text-gray-600" size={24} />
+                )}
+              </button>
+            </div>
 
-
-            {/* Mobile Navigation Button */}
             <div className="md:hidden flex items-center space-x-4">
               <button
                 onClick={toggleTheme}
@@ -113,7 +187,6 @@ function App() {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <div className="md:hidden absolute w-full bg-white dark:bg-gray-900 shadow-lg transition-colors duration-300">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -135,65 +208,46 @@ function App() {
         )}
       </nav>
 
-      {/* Main Content */}
       <main className="pt-16">
-        {/* Hero Section */}
         <section
-  id="home"
-  ref={homeRef}
-  className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 py-20 bg-white dark:bg-gray-900 transition-colors duration-300"
->
-  <div className="text-center">
-    <div className="relative inline-block">
-      <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500 animate-gradient mb-4">
-        I'm Harshada Yadav
-      </h1>
-      <div></div>
-    </div>
+          id="home"
+          ref={homeRef}
+          className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300"
+        >
+          <div className="text-center">
+            <div className="relative inline-block">
+              <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500 animate-gradient mb-4">
+                Harshada Yadav
+              </h1>
+              <div className=""></div>
+            </div>
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 animate-fade-in">
+              Software Developer
+            </p>
+            <div className="flex justify-center space-x-4 animate-fade-in-up">
+              <a
+                href="https://github.com/HarshadaSYadav"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-gray-800 dark:bg-gray-700 text-white rounded-full hover:bg-gray-700 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-110"
+              >
+                <Github size={24} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/harshadayadav13"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-500 transition-all duration-300 hover:scale-110"
+              >
+                <Linkedin size={24} />
+              </a>
+            </div>
+            <div className="mt-12">
+              <ChevronDown size={32} className="mx-auto text-gray-400 dark:text-gray-500 animate-bounce" />
+            </div>
+          </div>
+        </section>
 
-    <p
-      className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 animate-fade-in transition-transform transform duration-500 ease-in-out"
-      key={currentTitleIndex}
-    >
-      {titles[currentTitleIndex]}
-    </p>
-
-    <div className="flex justify-center space-x-4 animate-fade-in-up">
-      <a
-        href="https://github.com/HarshadaSYadav"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="p-2 bg-gray-800 dark:bg-gray-700 text-white rounded-full hover:bg-gray-700 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-110"
-      >
-        <Github size={24} />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/harshadayadav13"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-500 transition-all duration-300 hover:scale-110"
-      >
-        <Linkedin size={24} />
-      </a>
-      <a
-        href="C:\Users\harsh\/Harshada Professional Resume for Java (3) (1).pdf"
-        download
-        className="p-2 bg-green-600 text-white rounded-full hover:bg-green-500 transition-all duration-300 hover:scale-110"
-      >
-        <span className="flex items-center space-x-2">
-          <span>Download CV</span>
-        </span>
-      </a>
-    </div>
-
-    <div className="mt-12">
-      <ChevronDown size={32} className="mx-auto text-gray-400 dark:text-gray-500 animate-bounce" />
-    </div>
-  </div>
-</section>
-
-
-        {/* About Section */}
         <section
           id="about"
           ref={aboutRef}
@@ -231,7 +285,6 @@ function App() {
           </div>
         </section>
 
-        {/* Skills Section */}
         <section
           id="skills"
           ref={skillsRef}
@@ -241,75 +294,8 @@ function App() {
             <h2 className="text-6xl font-bold text-center mb-16 text-gray-900 dark:text-white">
               My technical arsenal
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6">
-              {[
-                {
-                  name: 'Java',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
-                  color: 'text-red-500',
-                },
-                {
-                  name: 'Spring',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg',
-                  color: 'text-green-500',
-                },
-                {
-                  name: 'MySQL',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
-                  color: 'text-blue-500',
-                },
-                {
-                  name: 'HTML5',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
-                  color: 'text-orange-500',
-                },
-                {
-                  name: 'CSS3',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
-                  color: 'text-blue-500',
-                },
-                {
-                  name: 'JavaScript',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
-                  color: 'text-yellow-400',
-                },
-                {
-                  name: 'React',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
-                  color: 'text-blue-400',
-                },
-                {
-                  name: 'Git',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
-                  color: 'text-orange-600',
-                },
-                {
-                  name: 'VSCode',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg',
-                  color: 'text-blue-500',
-                },
-                {
-                  name: 'Node.js',
-                  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
-                  color: 'text-green-500',
-                },
-                {
-                  name: 'Hibernate',
-                  icon: 'https://hibernate.org/images/hibernate_icon_whitebkg.svg',
-                  color: 'text-yellow-500',
-                },
-                {
-                  name: 'REST APIs',
-                  icon: 'https://www.svgrepo.com/show/375531/api.svg',
-                  color: 'text-purple-500',
-                },
-                {
-                  name: 'Postman',
-                  icon: 'https://www.svgrepo.com/show/354202/postman-icon.svg',
-                  color: 'text-orange-500',
-                },
-                
-              ].map((skill) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {skills.map((skill) => (
                 <div
                   key={skill.name}
                   className="group relative bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
@@ -333,7 +319,6 @@ function App() {
           </div>
         </section>
 
-        {/* Experience Section */}
         <section
           id="experience"
           ref={experienceRef}
@@ -342,10 +327,8 @@ function App() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-16">Experience</h2>
             <div className="relative">
-              {/* Timeline line */}
               <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-indigo-500 to-purple-500"></div>
               
-              {/* Timeline items */}
               <div className="space-y-12">
                 {[
                   {
@@ -391,7 +374,6 @@ function App() {
           </div>
         </section>
 
-        {/* Projects Section */}
         <section
           id="projects"
           ref={projectsRef}
@@ -449,7 +431,6 @@ function App() {
           </div>
         </section>
 
-        {/* Education Section */}
         <section
           id="education"
           ref={educationRef}
@@ -458,10 +439,8 @@ function App() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-16">Education</h2>
             <div className="relative">
-              {/* Timeline line */}
               <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-500 to-indigo-500"></div>
               
-              {/* Timeline items */}
               <div className="space-y-12">
                 {[
                   {
@@ -507,7 +486,6 @@ function App() {
           </div>
         </section>
 
-        {/* Contact Section */}
         <section
           id="contact"
           ref={contactRef}
